@@ -1,5 +1,7 @@
 from tkinter import *
 from random import *
+from tkinter import messagebox
+
 
 root = Tk()
 canvas = Canvas(root, width=500, height=500, background="white")
@@ -54,7 +56,9 @@ def carre(event):
         if i[0] <= dernierX <= i[2] and i[1] <= dernierY <= i[3]:
             canvas.create_rectangle(i, width=2, fill="red")
             resultat = "perdu"
-            return print("GAME OVER ! Votre score est de:", score)
+            message = f"GAME OVER ! Votre score est de: {score}"
+            messagebox.showinfo("résultat", message)
+            return
     for j in C:
         if j[0] <= dernierX <= j[2] and j[1] <= dernierY <= j[3]:
             for n in bombes:
@@ -62,10 +66,11 @@ def carre(event):
                     3] + 50 and j[1] - 50 <= n[3] <= j[3] + 50:
                     nbr_bombes = nbr_bombes + 1
             canvas.create_rectangle(j, width=2, fill="saddlebrown")
-            canvas.create_text(j[0] + 25, j[1] + 25, text=nbr_bombes, fill="black", font=('Helvetica'))
-            if score == 90:
+            canvas.create_text(j[0] + 25, j[1] + 25, text=nbr_bombes, fill="black", font=('poppins'))
+            if score == 89:
                 resultat = "gagné"
-                return print("Félicitations, vous avez trouvé tous les carrés non minés !")
+                message = "Félicitations, vous avez trouvé tous les carrés non minés !"
+                messagebox.showinfo("résultat", message)
             else:
                 score = score + 1
                 C.remove(j)
